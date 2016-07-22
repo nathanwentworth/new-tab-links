@@ -12,10 +12,13 @@ html {font-family: sans-serif;-ms-text-size-adjust: 100%;-webkit-text-size-adjus
 	text-shadow: none;
 }
 
-html {
+html,body {
 	color: #222;
 	font-size: 16px;
 	line-height: 1.375rem;
+	width: 100%;
+	height: 100%;
+	margin: 0;
 }
 
 /* extras */
