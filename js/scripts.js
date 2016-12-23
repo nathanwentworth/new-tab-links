@@ -1,10 +1,14 @@
 
 function Load() {
-  var links = localStorage.getItem('links');
-  var textarea = document.getElementById('textarea');
-  textarea.value = links;
-
-  ParseLinks(links);
+  // var links = localStorage.getItem('links');
+  // var links;
+  chrome.storage.sync.get('links', function(item) {
+    var textarea = document.getElementById('textarea');
+    textarea.value = item.links.trim();
+    console.log(item.links);
+    ParseLinks(item.links);
+    return item.links;
+  });
   
 }
 Load();
@@ -13,7 +17,10 @@ function ParseLinks(links) {
   var linksArr;
   if (links != null) {
     linksArr = links.split('\n');
+  } else {
+    console.log("ParseLinks: links is null");
   }
+  console.log(linksArr);
   CreateLinks(linksArr);
 }
 
@@ -28,6 +35,7 @@ function CreateLinks(linksArr) {
       var li = document.createElement('li');
       var a = document.createElement('a');
       if (linkRegex.test(linksArr[i])) {
+        linksArr[i] = linksArr[i].trim();
         a.setAttribute('href', 'http://' + linksArr[i].split(' ')[0])
         var linkText = linksArr[i].slice(linksArr[i].indexOf(' '));
         a.textContent = linkText;
@@ -56,9 +64,12 @@ function EditLinks() {
   }
 
   var textarea = document.getElementById('textarea');
-  var links = textarea.value;
+  var links = textarea.value.trim();
 
-  localStorage.setItem('links', links);
+  // localStorage.setItem('links', links);
+  chrome.storage.sync.set({
+    links: links
+  });
   var elements = document.getElementsByTagName('li');
   while (elements[0]) elements[0].parentNode.removeChild(elements[0]);
   Load();
@@ -81,4 +92,6 @@ function time() {
 }
 time();
 setInterval(time, 1000);
+
+document.getElementById('edit-button').addEventListener('click', EditLinks);
 
