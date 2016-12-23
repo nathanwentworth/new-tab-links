@@ -27,6 +27,7 @@ function ParseLinks(links) {
 function CreateLinks(linksArr) {
 
   var linkRegex = /\S+\.\S+ .+/;
+  var httpRegex = /https?/;
   
   var list = document.getElementById('list');
 
@@ -36,7 +37,11 @@ function CreateLinks(linksArr) {
       var a = document.createElement('a');
       if (linkRegex.test(linksArr[i])) {
         linksArr[i] = linksArr[i].trim();
-        a.setAttribute('href', 'http://' + linksArr[i].split(' ')[0])
+        var link = linksArr[i].split(' ')[0];
+        if (!httpRegex.test(link)) {
+          link = 'http://' + link;
+        }
+        a.setAttribute('href', link);
         var linkText = linksArr[i].slice(linksArr[i].indexOf(' '));
         a.textContent = linkText;
       } else {
