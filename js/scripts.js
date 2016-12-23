@@ -14,8 +14,6 @@ function ParseLinks(links) {
   if (links != null) {
     linksArr = links.split('\n');
   }
-  console.log(linksArr);
-  console.log(links);
   CreateLinks(linksArr);
 }
 

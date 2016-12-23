@@ -3,15 +3,6 @@ html {font-family: sans-serif;-ms-text-size-adjust: 100%;-webkit-text-size-adjus
 
 /* universal styles */
 
-::-moz-selection {
-	background: #fcb7b3;
-	text-shadow: none;
-}
-::selection {
-	background: #fcb7b3;
-	text-shadow: none;
-}
-
 html,body {
 	color: #222;
 	font-family: 'monaco', monospace;
@@ -95,43 +86,3 @@ a {
 
 a:link, a:visited {color:#4C4C4C;}
 a:hover, a:active {color:#000;}
-
-/* extras */
-
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
-}
-
-/*//////////////////*/
-/* responsive rules */
-/*//////////////////*/
-
-/* small screens */
-@media only screen and (max-width: 480px) {
-	h1 { font-size: 2rem; }
-	h2 { font-size: 1.625rem; }
-	h3 { font-size: 1.375rem; }
-	h4 { font-size: 1.125rem; }
-}
-
-/* tablets and small screens */
-@media only screen (min-width: 480px) and (max-width: 960px) {
-	h1 { font-size: 2.5rem; }
-	h2 { font-size: 2rem; }
-	h3 { font-size: 1.5rem; }
-	h4 { font-size: 1.125rem; }
-}
-
-/* normal to large screens */
-@media only screen (min-width: 960px) {
-	h1 { font-size: 3rem; }
-	h2 { font-size: 2.25rem; }
-	h3 { font-size: 1.75rem; }
-	h4 { font-size: 1.125rem; }	
-}
-
