@@ -20,17 +20,24 @@ function ParseLinks(links) {
 }
 
 function CreateLinks(linksArr) {
+
+  var linkRegex = /\S+\.\S+ .+/;
   
   var list = document.getElementById('list');
 
   if (linksArr != null && linksArr[0] != "") {
     for (var i = 0; i < linksArr.length; i++) {
-
       var li = document.createElement('li');
       var a = document.createElement('a');
-      a.setAttribute('href', 'http://' + linksArr[i].split(' ')[0])
-      var linkText = linksArr[i].slice(linksArr[i].indexOf(' '));
-      a.textContent = linkText;
+      if (linkRegex.test(linksArr[i])) {
+        a.setAttribute('href', 'http://' + linksArr[i].split(' ')[0])
+        var linkText = linksArr[i].slice(linksArr[i].indexOf(' '));
+        a.textContent = linkText;
+      } else {
+        a.setAttribute('href', '#');
+        a.textContent = "Invalid URL!";
+        a.style.color = "#ff0000";
+      }
       li.appendChild(a);
       list.appendChild(li);
     }
