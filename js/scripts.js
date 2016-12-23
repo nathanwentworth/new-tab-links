@@ -82,5 +82,5 @@ function time() {
   document.getElementById("minute").textContent = "" + min;
 }
 time();
-setInterval(time, 500);
+setInterval(time, 1000);
 
