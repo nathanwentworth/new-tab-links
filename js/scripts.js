@@ -1,34 +1,66 @@
 
-function Load() {
-  // var links = localStorage.getItem('links');
-  // var links;
-  chrome.storage.sync.get('links', function(item) {
+var browser = browser || chrome;
+var _links;
+var body;
+var textarea;
+var themeSelect;
+var fontSelect;
+var options = {
+  theme: 'light',
+  font: 'monospace'
+}
+
+window.addEventListener('load', init, false);
+
+function init() {
+  textarea = document.getElementById('textarea');
+  body = document.getElementById('body');
+  themeSelect = document.getElementById('theme');
+  themeSelect.addEventListener('change', changeTheme, false);
+  fontSelect = document.getElementById('font');
+  fontSelect.addEventListener('change', changeFont, false);
+  document.getElementById('edit-button').addEventListener('click', editLinks);
+  load();
+
+  time();
+  setInterval(time, 1000);
+}
+
+function load() {
+  browser.storage.sync.get('links', function(item) {
     var textarea = document.getElementById('textarea');
-    textarea.value = item.links.trim();
+    if (item.links != undefined) {
+      textarea.value = item.links.trim();
+    }
     console.log(item.links);
-    ParseLinks(item.links);
+    parseLinks(item.links);
+    _links = item.links;
     return item.links;
   });
-  
+  browser.storage.sync.get('options', function(item) {
+    console.log(item.options);
+    options = item.options || options;
+    loadTheme(options.theme);
+    loadFont(options.font);
+  });
 }
-Load();
 
-function ParseLinks(links) {
+function parseLinks(links) {
   var linksArr;
   if (links != null) {
     linksArr = links.split('\n');
   } else {
-    console.log("ParseLinks: links is null");
+    console.log("parseLinks: links is null");
   }
   console.log(linksArr);
-  CreateLinks(linksArr);
+  createLinks(linksArr);
 }
 
-function CreateLinks(linksArr) {
+function createLinks(linksArr) {
 
   var linkRegex = /\S+\.\S+ .+/;
   var httpRegex = /https?/;
-  
+
   var list = document.getElementById('list');
 
   if (linksArr != null && linksArr[0] != "") {
@@ -49,35 +81,65 @@ function CreateLinks(linksArr) {
         a.textContent = "Invalid URL!";
         a.style.color = "#ff0000";
       }
+      a.classList.add('button');
       li.appendChild(a);
       list.appendChild(li);
     }
   } else {
     var li = document.createElement('li');
-    li.innerHTML = "Click \"edit\" to add links!<br>Use the format: example.com example<br>URL, a space, and then the title.";
+    li.innerHTML = 'Click "edit" to add links!<br>Use the format: example.com example<br>URL, a space, and then the title.';
     list.appendChild(li);
   }
 }
-  
-function EditLinks() {
+
+function editLinks() {
   console.log("edit links clicked");
   var editSection = document.getElementById('edit');
-  if (editSection.style.display != "none") {
-    editSection.style.display = "none";
-  } else {
-    editSection.style.display = "block";
+
+  if (editSection.classList.toggle('hidden')) {
+    var links = textarea.value.trim();
+    if (links != _links) {
+      browser.storage.sync.set({ links: links });
+      var elements = document.getElementsByTagName('li');
+      while (elements[0]) elements[0].parentNode.removeChild(elements[0]);
+      load();
+    }
   }
+}
 
-  var textarea = document.getElementById('textarea');
-  var links = textarea.value.trim();
+function changeTheme(e) {
+  var newTheme = options.theme;
+  if (e != null) {
+    newTheme = e.target.value;
+    browser.storage.sync.set({ options: options });
+  }
+  loadTheme(newTheme);
+}
 
-  // localStorage.setItem('links', links);
-  chrome.storage.sync.set({
-    links: links
-  });
-  var elements = document.getElementsByTagName('li');
-  while (elements[0]) elements[0].parentNode.removeChild(elements[0]);
-  Load();
+function loadTheme(theme) {
+  options.theme = theme;
+  themeSelect.value = theme;
+  setBodyClass();
+}
+
+function changeFont(e) {
+  var newFont = options.font;
+  if (e != null) {
+    newFont = e.target.value;
+    browser.storage.sync.set({ options: options });
+  }
+  loadFont(newFont);
+}
+
+function loadFont(font) {
+  options.font = font;
+  fontSelect.value = font;
+  setBodyClass();
+}
+
+function setBodyClass() {
+  body.setAttribute('class', options.theme + " " + options.font);
+  browser.storage.sync.set({ options: options });
 }
 
 function time() {
@@ -90,13 +152,11 @@ function time() {
   }
   if (min < 10) {
     min = "0" + min;
-  }  
-  
-  document.getElementById("hour").textContent = "" + hr;
-  document.getElementById("minute").textContent = "" + min;
+  }
+
+  document.getElementById('time').textContent = hr + ":" + min;
 }
-time();
-setInterval(time, 1000);
 
-document.getElementById('edit-button').addEventListener('click', EditLinks);
-
+function clear() {
+  browser.storage.sync.clear();
+}

@@ -7,19 +7,39 @@
 	<link rel="stylesheet" href="style.css">
 	<title>new tab</title>
 </head>
-<body>
+<body id="body">
 
 <div class="main-container">
 
 	<section class="time">
-		<div><span id="hour"></span>:<span id="minute"></span></div>	
+		<div id="time"></div>
 	</section>
 	<section class="list">
-		<ul id='list'></ul>
+		<ul id="list"></ul>
 	</section>
-	<div id="edit-button" class="edit-button">edit</div>
-	<section style="display: none;" id="edit">
-		<textarea id="textarea"></textarea>
+	<section class="edit">
+		<div class="hidden" id="edit">
+			<textarea id="textarea" placeholder="google.com google"></textarea>
+			<div>
+				theme: <select id="theme">
+					<option value="light">light</option>
+					<option value="dark">dark</option>
+					<option value="black">black</option>
+					<option value="red">red</option>
+					<option value="blue">blue</option>
+					<option value="purple">purple</option>
+				</select>
+			</div>
+			<div>
+				font: <select id="font">
+					<option value="system">system</option>
+					<option value="monospace">monospace</option>
+					<option value="sans-serif">sans-serif</option>
+					<option value="serif">serif</option>
+				</select>
+			</div>
+		</div>
+		<button id="edit-button" class="button edit-button">edit</button>
 	</section>
 
 <script type="text/javascript" src="/js/scripts.js"></script>
