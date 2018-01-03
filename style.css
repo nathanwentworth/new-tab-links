@@ -22,6 +22,12 @@ body.serif * { font-family: 'Georgia', serif; }
 
 /* main */
 
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 section {
   margin-left: 10vw;
   margin-top: 2rem;
@@ -43,23 +49,31 @@ section #edit {
 .edit-button {
   font-size: 1rem;
   /*font-family: 'monaco', monospace;*/
-  position: absolute;
+  /*position: absolute;*/
   color: #4C4C4C;
   background: #eee;
+  display: block;
   border: none;
 }
 .edit {
-  position: absolute;
-  bottom: 48px;
-  left: 0;
+  margin-top: auto;
+  margin-bottom: 2rem;
+  /*align-self: flex-end;*/
+  /*position: absolute;*/
+  /*bottom: 48px;*/
+  /*left: 0;*/
 }
 .edit textarea {
-  height: 320px;
-  width: 260px;
+  height: 32rem;
+  width: 32rem;
+  min-width: 12rem;
+  min-height: 12rem;
+  max-width: 80vw;
+  max-height: 50vh;
   border-radius: 6px;
   border: none;
   padding: 8px;
-  resize: none;
+  resize: horizontal;
   overflow: scroll;
   outline: none;
 }
