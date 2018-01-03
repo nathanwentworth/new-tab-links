@@ -15,6 +15,8 @@ html,body {
   overflow: hidden;
 }
 
+ul { margin: 0; }
+
 body.system * { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
 body.monospace * { font-family: 'Monaco', 'Consolas', 'Lucidia Console', monospace; }
 body.sans-serif * { font-family: Helvetica, Arial, sans-serif; }
@@ -64,12 +66,12 @@ section #edit {
   /*left: 0;*/
 }
 .edit textarea {
-  height: 32rem;
+  margin-top: auto;
+  height: 16rem;
+  max-height: 100%;
   width: 32rem;
   min-width: 12rem;
-  min-height: 12rem;
   max-width: 80vw;
-  max-height: 50vh;
   border-radius: 6px;
   border: none;
   padding: 8px;
