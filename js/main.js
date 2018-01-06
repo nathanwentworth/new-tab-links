@@ -2,6 +2,7 @@
 var browser = browser || chrome;
 var _links;
 var body;
+var listParent;
 var textarea;
 var themeSelect;
 var fontSelect;
@@ -9,12 +10,14 @@ var options = {
   theme: 'light',
   font: 'monospace'
 }
+var version = '2017-01-05'
 
 window.addEventListener('load', init, false);
 
 function init() {
   textarea = document.getElementById('textarea');
   body = document.getElementById('body');
+  listParent = document.querySelector('.list');
   themeSelect = document.getElementById('theme');
   themeSelect.addEventListener('change', changeTheme, false);
   fontSelect = document.getElementById('font');
@@ -61,7 +64,6 @@ function createLinks(linksArr) {
   var linkRegex = /\S+\.\S+ .+/;
   var httpRegex = /https?/;
 
-  var listParent = document.querySelector('.list');
   var list = document.createElement('ul');
 
   if (linksArr != null && linksArr[0] != "") {
@@ -83,6 +85,7 @@ function createLinks(linksArr) {
         if (linksArr[i] === '---' || linksArr[i] === '===') {
           listParent.appendChild(list);
           list = document.createElement('ul');
+          continue;
         } else {
           li.textContent = linksArr[i];
           li.classList.add('header');
@@ -91,12 +94,13 @@ function createLinks(linksArr) {
       list.appendChild(li);
     }
 
-    listParent.appendChild(list);
   } else {
     var li = document.createElement('li');
-    li.innerHTML = 'Click "edit" to add links!<br>Use the format: example.com example<br>URL, a space, and then the title.';
+    li.innerHTML = 'Click "edit" to add links!<br><br>Use the format: example.com example<br>URL, a space, and then the title.<br><br>Use "---" to add a new column.<br>Add text without a URL to create a header.';
     list.appendChild(li);
   }
+
+  listParent.appendChild(list);
 }
 
 function editLinks() {
@@ -107,8 +111,9 @@ function editLinks() {
     var links = textarea.value.trim();
     if (links != _links) {
       browser.storage.sync.set({ links: links });
-      var elements = document.getElementsByTagName('li');
-      while (elements[0]) elements[0].parentNode.removeChild(elements[0]);
+      while (listParent.childNodes[0]) listParent.removeChild(listParent.childNodes[0]);
+      // var elements = document.getElementsByTagName('li');
+      // while (elements[0]) elements[0].parentNode.removeChild(elements[0]);
       load();
     }
   }

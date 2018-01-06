@@ -43,6 +43,10 @@ section #edit {
   cursor: default;
 }
 
+.list {
+
+}
+
 .button {
   border-radius: 4px;
   padding: 4px;
@@ -91,6 +95,7 @@ ul {
   user-select: none;
   display: inline-block;
   margin-right: 2rem;
+  vertical-align: top;
 }
 li {
   margin: 16px 0;
