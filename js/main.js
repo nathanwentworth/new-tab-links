@@ -61,7 +61,8 @@ function createLinks(linksArr) {
   var linkRegex = /\S+\.\S+ .+/;
   var httpRegex = /https?/;
 
-  var list = document.getElementById('list');
+  var listParent = document.querySelector('.list');
+  var list = document.createElement('ul');
 
   if (linksArr != null && linksArr[0] != "") {
     for (var i = 0; i < linksArr.length; i++) {
@@ -76,15 +77,21 @@ function createLinks(linksArr) {
         a.setAttribute('href', link);
         var linkText = linksArr[i].slice(linksArr[i].indexOf(' '));
         a.textContent = linkText;
+        a.classList.add('button');
+        li.appendChild(a);
       } else {
-        a.setAttribute('href', '#');
-        a.textContent = "Invalid URL!";
-        a.style.color = "#ff0000";
+        if (linksArr[i] === '---' || linksArr[i] === '===') {
+          listParent.appendChild(list);
+          list = document.createElement('ul');
+        } else {
+          li.textContent = linksArr[i];
+          li.classList.add('header');
+        }
       }
-      a.classList.add('button');
-      li.appendChild(a);
       list.appendChild(li);
     }
+
+    listParent.appendChild(list);
   } else {
     var li = document.createElement('li');
     li.innerHTML = 'Click "edit" to add links!<br>Use the format: example.com example<br>URL, a space, and then the title.';

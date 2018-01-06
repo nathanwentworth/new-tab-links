@@ -48,6 +48,11 @@ section #edit {
   padding: 4px;
 }
 
+.header {
+  margin-top: 2rem;
+  font-weight: bold;
+}
+
 .edit-button {
   font-size: 1rem;
   /*font-family: 'monaco', monospace;*/
@@ -84,6 +89,8 @@ ul {
   list-style: none;
   padding-left: 0;
   user-select: none;
+  display: inline-block;
+  margin-right: 2rem;
 }
 li {
   margin: 16px 0;
