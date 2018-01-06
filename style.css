@@ -68,7 +68,6 @@ section #edit {
 }
 .edit {
   margin-top: auto;
-  margin-bottom: 2rem;
   /*align-self: flex-end;*/
   position: absolute;
   bottom: 2rem;
@@ -95,6 +94,7 @@ ul {
   user-select: none;
   display: inline-block;
   margin-right: 2rem;
+  margin-bottom: 2rem;
   vertical-align: top;
 }
 li {
