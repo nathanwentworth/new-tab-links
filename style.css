@@ -59,12 +59,15 @@ section #edit {
 
 .edit-button {
   font-size: 1rem;
-  /*font-family: 'monaco', monospace;*/
-  /*position: absolute;*/
   color: #4C4C4C;
   background: #eee;
   display: block;
   border: none;
+  transition: 0.2s;
+  opacity: 0.8;
+}
+.edit-button:hover {
+  opacity: 1;
 }
 .edit {
   margin-top: auto;
