@@ -1,7 +1,8 @@
-
 var browser = browser || chrome;
 var _links;
 var body;
+var timeElem;
+var editSection;
 var listParent;
 var textarea;
 var themeSelect;
@@ -10,7 +11,7 @@ var options = {
   theme: 'light',
   font: 'monospace'
 }
-var version = '2017-01-05'
+var version = '2018-05-30'
 
 window.addEventListener('load', init, false);
 
@@ -23,6 +24,9 @@ function init() {
   fontSelect = document.getElementById('font');
   fontSelect.addEventListener('change', changeFont, false);
   document.getElementById('edit-button').addEventListener('click', editLinks);
+
+  timeElem = document.getElementById('time');
+  editSection = document.getElementById('edit')
   load();
 
   time();
@@ -101,12 +105,7 @@ function createLinks(linksArr) {
           lastRowWasHeader = true;
         }
       }
-      list.appendChild(li);
     }
-
-  } else {
-    var li = document.createElement('li');
-    li.innerHTML = 'Click "edit" to add links!<br><br>Use the format: example.com example<br>URL, a space, and then the title.<br><br>Use "---" to add a new column.<br>Add text without a URL to create a header.';
     list.appendChild(li);
   }
 
@@ -114,27 +113,23 @@ function createLinks(linksArr) {
 }
 
 function editLinks() {
-  console.log("edit links clicked");
-  var editSection = document.getElementById('edit');
+  if (!editSection.classList.toggle('hidden')) {
+    return;
+  }
 
-  if (editSection.classList.toggle('hidden')) {
-    var links = textarea.value.trim();
-    if (links != _links) {
-      browser.storage.sync.set({ links: links });
-      while (listParent.childNodes[0]) listParent.removeChild(listParent.childNodes[0]);
-      // var elements = document.getElementsByTagName('li');
-      // while (elements[0]) elements[0].parentNode.removeChild(elements[0]);
-      load();
-    }
+  var links = textarea.value.trim();
+  if (links != _links) {
+    browser.storage.sync.set({ links: links });
+    while (listParent.childNodes[0]) listParent.removeChild(listParent.childNodes[0]);
+    load();
   }
 }
 
 function changeTheme(e) {
+  if (!e) { return; }
   var newTheme = options.theme;
-  if (e != null) {
-    newTheme = e.target.value;
-    browser.storage.sync.set({ options: options });
-  }
+  newTheme = e.target.value;
+  browser.storage.sync.set({ options: options });
   loadTheme(newTheme);
 }
 
@@ -145,11 +140,10 @@ function loadTheme(theme) {
 }
 
 function changeFont(e) {
+  if (!e) { return; }
   var newFont = options.font;
-  if (e != null) {
-    newFont = e.target.value;
-    browser.storage.sync.set({ options: options });
-  }
+  newFont = e.target.value;
+  browser.storage.sync.set({ options: options });
   loadFont(newFont);
 }
 
@@ -169,14 +163,11 @@ function time() {
   var hr = d.getHours();
   var min = d.getMinutes();
 
-  if (hr > 12) {
-    hr = hr - 12;
-  }
-  if (min < 10) {
-    min = "0" + min;
-  }
+  if (hr > 12) { hr = hr - 12; }
+  if (hr < 10) { hr = "0" + hr; }
+  if (min < 10) { min = "0" + min; }
 
-  document.getElementById('time').textContent = hr + ":" + min;
+  timeElem.textContent = hr + ":" + min;
 }
 
 function clear() {
