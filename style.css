@@ -1,5 +1,5 @@
 /* normalize */
-html {font-family: sans-serif;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;}body {margin: 0;padding:0;}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary {display: block;}audio,canvas,progress,video {display: inline-block;vertical-align: baseline;}a {background-color: transparent;}a:active,a:hover {outline: 0;}b,strong {font-weight: bold;}img {border: 0;}svg:not(:root) {overflow: hidden;}hr {box-sizing: content-box;height: 0;}pre {overflow: auto;}button {overflow: visible;}audio,canvas,iframe,img,svg,video {vertical-align: middle;}fieldset {border: 0;margin: 0;padding: 0;}
+html {font-family: sans-serif;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;}body {margin: 0;padding:0;}button {overflow: visible;}
 
 /* universal styles */
 
@@ -9,10 +9,10 @@ html,body {
   font-size: 16px;
   line-height: 1.375rem;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   background: #f5f6f6;
   margin: 0;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 ul { margin: 0; }
@@ -26,8 +26,9 @@ body.serif * { font-family: 'Georgia', serif; }
 
 .main-container {
   display: flex;
+  overflow: auto;
   flex-direction: column;
-  height: 100vh;
+  padding-bottom: 4rem;
 }
 
 section {
@@ -48,13 +49,17 @@ section #edit {
 }
 
 .button {
-  border-radius: 4px;
-  padding: 4px;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
 }
 
 .header {
   margin-top: 2rem;
   font-weight: bold;
+}
+.text {
+  margin-top: 0.5rem;
+  font-weight: normal;
 }
 
 .edit-button {
@@ -69,9 +74,14 @@ section #edit {
 .edit {
   margin-top: auto;
   /*align-self: flex-end;*/
-  position: absolute;
+  position: fixed;
   bottom: 2rem;
   left: 0;
+}
+#edit {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-left: -1rem;
 }
 .edit textarea {
   margin-top: auto;
@@ -82,7 +92,7 @@ section #edit {
   max-width: 80vw;
   border-radius: 6px;
   border: none;
-  padding: 8px;
+  padding: 0.5rem;
   resize: horizontal;
   overflow: scroll;
   outline: none;
@@ -97,14 +107,10 @@ ul {
   margin-bottom: 2rem;
   vertical-align: top;
 }
-li {
-  margin: 16px 0;
-}
-li:first-child {
-  margin-top: 0;
-}
-li:last-child {
-  margin-bottom: 0;
+
+li+li {
+  margin: 0;
+  margin-top: 1rem;
 }
 
 a {
@@ -130,6 +136,7 @@ body.light {
   background: #f1f2f3;
 }
 
+body.light #edit { background: #eaeaea; color:#4C4C4C; }
 body.light .button { background: #eaeaea; color:#4C4C4C; }
 body.light .button:link, body.light .button:visited { color:#4C4C4C; }
 body.light .button:hover, body.light .button:active { color:#000; }
@@ -144,6 +151,7 @@ body.dark {
   background: #394146;
 }
 
+body.dark #edit { background: #454E54; color:#fff; }
 body.dark .button { background: #454E54; color:#fff; }
 body.dark .button:link, body.dark .button:visited { color:#fff; }
 body.dark .button:hover, body.dark .button:active { color:#eee; }
@@ -159,6 +167,7 @@ body.black {
   background: #000;
 }
 
+body.black #edit { background:#1e1e1e; color:#eee; }
 body.black .button { background:#1e1e1e; color:#eee; }
 body.black .button:link, body.black .button:visited { color:#eee; }
 body.black .button:hover, body.black .button:active { color:#ddd; }
@@ -174,6 +183,7 @@ body.red {
   background: #f55;
 }
 
+body.red #edit { background:#f66; color:#eee; }
 body.red .button { background:#f66; color:#eee; }
 body.red .button:link, body.red .button:visited { color:#eee; }
 body.red .button:hover, body.red .button:active { color:#ddd; }
@@ -189,6 +199,7 @@ body.blue {
   background: #55f;
 }
 
+body.blue #edit { background:#66f; color:#eee; }
 body.blue .button { background:#66f; color:#eee; }
 body.blue .button:link, body.blue .button:visited { color:#eee; }
 body.blue .button:hover, body.blue .button:active { color:#ddd; }
@@ -204,6 +215,7 @@ body.purple {
   background: #6528DD;
 }
 
+body.purple #edit { background:#7339E7; color:#eee; }
 body.purple .button { background:#7339E7; color:#eee; }
 body.purple .button:link, body.purple .button:visited { color:#eee; }
 body.purple .button:hover, body.purple .button:active { color:#ddd; }

@@ -9,5 +9,10 @@
   },
 	"permissions": [
 		"storage"
-	]
+	],
+  "applications": {
+    "gecko": {
+      "id": "{2fdf13eb-fee6-48c7-9bd3-5624a005d68e}"
+    }
+  }
 }

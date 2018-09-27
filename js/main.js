@@ -63,9 +63,9 @@ function createLinks(linksArr) {
 
   var linkRegex = /\S+\.\S+ .+/;
   var httpRegex = /https?/;
+  var lastRowWasHeader = false;
 
   var list = document.createElement('ul');
-
   if (linksArr != null && linksArr[0] != "") {
     for (var i = 0; i < linksArr.length; i++) {
       var li = document.createElement('li');
@@ -81,14 +81,24 @@ function createLinks(linksArr) {
         a.textContent = linkText;
         a.classList.add('button');
         li.appendChild(a);
+        lastRowWasHeader = false;
       } else {
-        if (linksArr[i] === '---' || linksArr[i] === '===') {
+        if (linksArr[i] === '\n' || linksArr[i] === '') {
+          lastRowWasHeader = false;
+          continue;
+        } else if (linksArr[i] === '---' || linksArr[i] === '===') {
+          lastRowWasHeader = false;
           listParent.appendChild(list);
           list = document.createElement('ul');
           continue;
         } else {
           li.textContent = linksArr[i];
-          li.classList.add('header');
+          if (lastRowWasHeader) {
+            li.classList.add('text');
+          } else {
+            li.classList.add('header');
+          }
+          lastRowWasHeader = true;
         }
       }
       list.appendChild(li);
