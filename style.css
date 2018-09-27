@@ -54,8 +54,10 @@ section #edit {
 }
 
 .header {
-  margin-top: 2rem;
   font-weight: bold;
+}
+li+.header {
+  margin-top: 2rem;
 }
 .text {
   margin-top: 0.5rem;

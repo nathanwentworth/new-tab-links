@@ -36,10 +36,10 @@ function init() {
 function load() {
   browser.storage.sync.get('links', function(item) {
     var textarea = document.getElementById('textarea');
-    if (item.links != undefined) {
+    if (item.links) {
       textarea.value = item.links.trim();
     }
-    console.log(item.links);
+    console.log('links from storage:',item.links);
     parseLinks(item.links);
     _links = item.links;
     return item.links;
@@ -54,7 +54,7 @@ function load() {
 
 function parseLinks(links) {
   var linksArr;
-  if (links != null) {
+  if (links !== null) {
     linksArr = links.split('\n');
   } else {
     console.log("parseLinks: links is null");
@@ -70,11 +70,21 @@ function createLinks(linksArr) {
   var lastRowWasHeader = false;
 
   var list = document.createElement('ul');
+
+  if (!linksArr || !linksArr[0]) {
+    var li = document.createElement('li');
+    li.innerHTML = 'Click "edit" to add links!<br><br>Use the format: example.com example<br>URL, a space, and then the title.<br><br>Use "---" to add a new column.<br>Add text without a URL to create a header.';
+    list.appendChild(li);
+    listParent.appendChild(list);
+    return;
+  }
+
   if (linksArr != null && linksArr[0] != "") {
     for (var i = 0; i < linksArr.length; i++) {
+      console.log('checking',linksArr[i])
       var li = document.createElement('li');
-      var a = document.createElement('a');
       if (linkRegex.test(linksArr[i])) {
+        var a = document.createElement('a');
         linksArr[i] = linksArr[i].trim();
         var link = linksArr[i].split(' ')[0];
         if (!httpRegex.test(link)) {
@@ -96,6 +106,7 @@ function createLinks(linksArr) {
           list = document.createElement('ul');
           continue;
         } else {
+          console.log('creating header')
           li.textContent = linksArr[i];
           if (lastRowWasHeader) {
             li.classList.add('text');
@@ -105,8 +116,8 @@ function createLinks(linksArr) {
           lastRowWasHeader = true;
         }
       }
+      list.appendChild(li);
     }
-    list.appendChild(li);
   }
 
   listParent.appendChild(list);

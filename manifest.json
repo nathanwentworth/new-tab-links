@@ -1,7 +1,7 @@
 {
 	"name": "new tab links",
 	"manifest_version": 2,
-	"version": "1.4",
+	"version": "1.5",
   "description": "A replacement new tab page, displays a clock and links of your choosing.",
   "applications": {
     "gecko": {
@@ -13,10 +13,5 @@
   },
 	"permissions": [
 		"storage"
-	],
-  "applications": {
-    "gecko": {
-      "id": "{2fdf13eb-fee6-48c7-9bd3-5624a005d68e}"
-    }
-  }
+	]
 }
