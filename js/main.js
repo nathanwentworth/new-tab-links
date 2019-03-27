@@ -54,7 +54,7 @@ function load() {
 
 function parseLinks(links) {
   var linksArr;
-  if (links !== null) {
+  if (links) {
     linksArr = links.split('\n');
   } else {
     console.log("parseLinks: links is null");
@@ -70,6 +70,7 @@ function createLinks(linksArr) {
   var lastRowWasHeader = false;
 
   var list = document.createElement('ul');
+  console.log('linksArr', linksArr);
 
   if (!linksArr || !linksArr[0]) {
     var li = document.createElement('li');
@@ -83,7 +84,7 @@ function createLinks(linksArr) {
     for (var i = 0; i < linksArr.length; i++) {
       console.log('checking',linksArr[i])
       var li = document.createElement('li');
-      if (linkRegex.test(linksArr[i])) {
+      if (linkRegex.test(linksArr[i]) || httpRegex.test(linksArr[i])) {
         var a = document.createElement('a');
         linksArr[i] = linksArr[i].trim();
         var link = linksArr[i].split(' ')[0];

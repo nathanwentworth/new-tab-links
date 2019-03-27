@@ -226,4 +226,21 @@ body.purple .button:link, body.purple .button:visited { color:#eee; }
 body.purple .button:hover, body.purple .button:active { color:#ddd; }
 body.purple textarea { background:#7339E7; color:#eee; }
 
+/*
+  ## yellow
+*/
+
+body.yellow {
+  color: #fff;
+  background: goldenrod;
+}
+
+body.yellow #edit,
+body.yellow .button,
+body.yellow textarea { background:darkgoldenrod; color:#eee; }
+body.yellow .button:link,
+body.yellow .button:visited { color:#eee; }
+body.yellow .button:hover,
+body.yellow .button:active { color:#ddd; }
+
 
